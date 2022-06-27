@@ -29,6 +29,11 @@ class BusinessLogic extends ChangeNotifier {
     return _uncompletedList;
   }
 
+  String _selectedList = 'Task List';
+  String get selectedList {
+    return _selectedList;
+  }
+
   void checkTask(Task taskToCheck) {
     taskToCheck.isCompleted = !taskToCheck.isCompleted;
     notifyListeners();
@@ -61,6 +66,11 @@ class BusinessLogic extends ChangeNotifier {
   void clearCompleted() {
     _taskList.removeWhere((task) => task.isCompleted);
     _updateLists();
+    notifyListeners();
+  }
+
+  void selectList(String selectList) {
+    _selectedList = selectList;
     notifyListeners();
   }
 }

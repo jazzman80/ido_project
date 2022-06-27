@@ -9,32 +9,30 @@ class AddTaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        padding: EdgeInsets.only(
-          right: 10.0,
-          left: 20.0,
-          bottom: MediaQuery.of(context).viewInsets.bottom + 20.0,
+    return Container(
+      padding: EdgeInsets.only(
+        right: 10.0,
+        left: 20.0,
+        bottom: MediaQuery.of(context).viewInsets.bottom + 20.0,
+      ),
+      child: ListTile(
+        title: TextField(
+          decoration: const InputDecoration(
+            hintText: 'create new task',
+          ),
+          autofocus: true,
+          onEditingComplete: () {
+            Navigator.pop(context);
+          },
+          controller: _textController,
         ),
-        child: ListTile(
-          title: TextField(
-            decoration: const InputDecoration(
-              hintText: 'create new task',
-            ),
-            autofocus: true,
-            onEditingComplete: () {
-              Navigator.pop(context);
-            },
-            controller: _textController,
-          ),
-          trailing: IconButton(
-            onPressed: () {
-              Provider.of<BusinessLogic>(context, listen: false)
-                  .addTask(_textController.text);
-              _textController.clear();
-            },
-            icon: Icon(Icons.send),
-          ),
+        trailing: IconButton(
+          onPressed: () {
+            Provider.of<BusinessLogic>(context, listen: false)
+                .addTask(_textController.text);
+            _textController.clear();
+          },
+          icon: Icon(Icons.send),
         ),
       ),
     );

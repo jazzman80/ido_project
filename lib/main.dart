@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ido_project/app_theme.dart';
 import 'package:ido_project/business_logic/business_logic.dart';
 import 'package:ido_project/completed_list_screen/completed_list_screen.dart';
-import 'package:ido_project/desktop/tasks_screen/desktop_tasks_screen.dart';
+import 'package:ido_project/desktop/main_screen/desktop_main_screen.dart';
 import 'package:ido_project/task_list_screen/task_list_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -22,11 +22,11 @@ class IdoProject extends StatelessWidget {
       initialRoute: Theme.of(context).platform == TargetPlatform.android ||
               Theme.of(context).platform == TargetPlatform.iOS
           ? TaskListScreen.route
-          : DesktopTasksScreen.route,
+          : DesktopMainScreen.route,
       routes: {
         TaskListScreen.route: (context) => TaskListScreen(),
         CompletedListScreen.route: (context) => CompletedListScreen(),
-        DesktopTasksScreen.route: (context) => DesktopTasksScreen(),
+        DesktopMainScreen.route: (context) => DesktopMainScreen(),
       },
       theme: appTheme(context),
     );
