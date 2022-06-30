@@ -18,12 +18,10 @@ class AddTaskScreen extends StatelessWidget {
       child: ListTile(
         title: TextField(
           decoration: const InputDecoration(
-            hintText: 'create new task',
+            hintText: 'enter task name',
+            labelText: 'create new task',
           ),
           autofocus: true,
-          onEditingComplete: () {
-            Navigator.pop(context);
-          },
           controller: _textController,
         ),
         trailing: IconButton(

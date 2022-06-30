@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ido_project/add_task_screen/add_task_screen.dart';
+import 'package:ido_project/shared/add_task_screen/add_task_screen.dart';
 
-class TaskListFab extends StatelessWidget {
-  const TaskListFab({Key? key}) : super(key: key);
+class TaskFab extends StatelessWidget {
+  const TaskFab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

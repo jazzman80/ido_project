@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ido_project/add_task_screen/add_task_screen.dart';
+import 'package:ido_project/shared/add_task_screen/add_task_screen.dart';
 import 'package:ido_project/business_logic/business_logic.dart';
-import 'package:ido_project/completed_list_screen/completed_list_view.dart';
-import 'package:ido_project/task_list_screen/task_list_view.dart';
+import 'package:ido_project/shared/completed_listview.dart';
+import 'package:ido_project/shared/task_listview.dart';
 import 'package:provider/provider.dart';
 
 class RightPanel extends StatelessWidget {
