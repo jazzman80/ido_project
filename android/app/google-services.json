@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "759914819049",
+    "project_id": "ido-project-bdfc3",
+    "storage_bucket": "ido-project-bdfc3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:759914819049:android:52314cecc89b5293cc6f78",
+        "android_client_info": {
+          "package_name": "com.example.ido_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "759914819049-004gp769t1irn8s91mlnq1gnild7vd5j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKZb2VK07S32tunoNYPn856s2ZyXQowcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "759914819049-004gp769t1irn8s91mlnq1gnild7vd5j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
