@@ -4,28 +4,25 @@ import 'package:ido_project/business_logic/tasks.dart';
 import 'package:ido_project/screens/add_task_screen.dart';
 import 'package:ido_project/widgets/task_listtile.dart';
 import 'package:ido_project/screens/completed_screen.dart';
+import 'package:get/get.dart';
 
 class MainScreen extends ConsumerWidget {
   const MainScreen({
     Key? key,
   }) : super(key: key);
 
-  static String route = 'Main Screen';
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final taskList = ref.watch(uncompletedTaskProvider);
 
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
         title: const Text('Tasks'),
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(
-                context,
-                CompletedScreen.route,
-              );
+              Get.to(() => CompletedScreen());
             },
             icon: const Icon(Icons.check_circle_outline),
           ),
@@ -33,12 +30,10 @@ class MainScreen extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showModalBottomSheet(
-            isScrollControlled: true,
-            context: context,
-            builder: (BuildContext context) {
-              return AddTaskScreen();
-            },
+          Get.bottomSheet(
+            AddTaskScreen(),
+            isScrollControlled: false,
+            backgroundColor: Colors.white,
           );
         },
         child: const Icon(Icons.add),
@@ -48,10 +43,17 @@ class MainScreen extends ConsumerWidget {
           itemCount: taskList.length,
           itemBuilder: (context, index) {
             return TaskListTile(
-              taskList: taskList,
-              index: index,
+              task: taskList[index],
             );
           },
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Theme.of(context).colorScheme.primary,
+        shape: CircularNotchedRectangle(),
+        notchMargin: 5.0,
+        child: SizedBox(
+          height: 60.0,
         ),
       ),
     );

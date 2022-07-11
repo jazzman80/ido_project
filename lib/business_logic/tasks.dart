@@ -1,71 +1,44 @@
-import 'dart:async';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
 @immutable
 class Task {
   const Task({
-    required this.index,
+    required this.id,
     required this.name,
     required this.isCompleted,
   });
 
-  final String index;
+  final String id;
   final String name;
   final bool isCompleted;
-
-  Task copyWith({String? index, String? name, bool? isCompleted}) {
-    return Task(
-      index: index ?? this.index,
-      name: name ?? this.name,
-      isCompleted: isCompleted ?? this.isCompleted,
-    );
-  }
 }
 
-class TaskNotifier extends StateNotifier<List<Task>> {
-  TaskNotifier()
-      : super([
-          Task(
-            index: '0',
-            name: 'Check this task',
-            isCompleted: false,
-          ),
-          Task(
-            index: '1',
-            name: 'Try to add another one',
-            isCompleted: false,
-          ),
-        ]);
+final taskStreamProvider = StreamProvider<QuerySnapshot>((ref) =>
+    FirebaseFirestore.instance
+        .collection(FirebaseAuth.instance.currentUser!.uid)
+        .snapshots());
 
-  void addTask(Task task) {
-    state = [...state, task];
-  }
+final taskProvider = Provider<List<Task>>((ref) {
+  final stream = ref.watch(taskStreamProvider);
 
-  void removeTask(String index) {
-    state = [
-      for (final task in state)
-        if (index != task.index) task,
-    ];
-  }
-
-  void checkTask(String index) {
-    state = [
-      for (final task in state)
-        if (index != task.index)
-          task
-        else
-          task.copyWith(isCompleted: !task.isCompleted),
-    ];
-  }
-}
-
-final taskProvider =
-    StateNotifierProvider<TaskNotifier, List<Task>>((ref) => TaskNotifier());
+  return stream.value != null
+      ? [
+          for (final task in stream.value!.docs)
+            Task(
+              id: task.id,
+              name: task['name'],
+              isCompleted: task['isCompleted'],
+            )
+        ]
+      : [];
+});
 
 final uncompletedTaskProvider = Provider((ref) {
   final taskList = ref.watch(taskProvider);
+
   return taskList.where((task) => !task.isCompleted).toList();
 });
 

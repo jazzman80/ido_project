@@ -1,44 +1,40 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ido_project/business_logic/tasks.dart';
 
-class AddTaskScreen extends ConsumerWidget {
+class AddTaskScreen extends StatelessWidget {
   const AddTaskScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final TextEditingController taskName = TextEditingController();
-    final index = (ref.watch(taskProvider).length + 1).toString();
 
-    return Container(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-      ),
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
             autofocus: true,
             controller: taskName,
-            decoration: InputDecoration(hintText: 'enter task'),
+            decoration: const InputDecoration(hintText: 'enter task'),
           ),
-          SizedBox(
+          const SizedBox(
             height: 40.0,
           ),
           ElevatedButton(
             onPressed: () {
-              ref.read(taskProvider.notifier).addTask(
-                    Task(
-                      index: index,
-                      name: taskName.text,
-                      isCompleted: false,
-                    ),
-                  );
+              FirebaseFirestore.instance
+                  .collection(FirebaseAuth.instance.currentUser!.uid)
+                  .add({
+                'name': taskName.text,
+                'isCompleted': false,
+              });
               taskName.clear();
             },
-            child: Text('Add Task'),
+            child: const Text('Add Task'),
           ),
         ],
       ),

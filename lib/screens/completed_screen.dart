@@ -8,8 +8,6 @@ class CompletedScreen extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  static String route = 'Completed Screen';
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final taskList = ref.watch(completedTaskProvider);
@@ -18,15 +16,27 @@ class CompletedScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text('Completed Tasks'),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.delete_forever),
+      ),
       body: SafeArea(
         child: ListView.builder(
           itemCount: taskList.length,
           itemBuilder: (context, index) {
             return TaskListTile(
-              taskList: taskList,
-              index: index,
+              task: taskList[index],
             );
           },
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Theme.of(context).colorScheme.primary,
+        shape: CircularNotchedRectangle(),
+        notchMargin: 5.0,
+        child: SizedBox(
+          height: 60.0,
         ),
       ),
     );
